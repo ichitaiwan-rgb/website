@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ichi's Little Universe | 個人學生名片</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  
+  <script>
+    // Configure Tailwind Dark Mode and Custom Palette
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Fredoka', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            buttercream: '#FFFBEB',
+            peach: {
+              50: '#FFF5F0',
+              100: '#FFE8DF',
+              200: '#FFD2C2',
+              400: '#FF8A65',
+              500: '#FF6F43',
+            },
+            butter: {
+              100: '#FEF9C3',
+              200: '#FEF08A',
+              300: '#FDE047',
+              400: '#FACC15',
+            },
+            pastelBlue: {
+              50: '#F0F9FF',
+              100: '#E0F2FE',
+              200: '#BAE6FD',
+              400: '#38BDF8',
+              500: '#0284C7',
+            },
+            pastelMint: {
+              50: '#F0FDF4',
+              100: '#DCFCE7',
+              200: '#BBF7D0',
+              500: '#22C55E',
+            },
+            pastelLavender: {
+              50: '#FAF5FF',
+              100: '#F3E8FF',
+              200: '#E9D5FF',
+              400: '#C084FC',
+              500: '#A855F7',
+            }
+          },
+          boxShadow: {
+            'squircle': '0 20px 40px -15px rgba(251, 146, 60, 0.15), 0 0 0 3px #FFE8DF',
+            'float-card': '0 12px 24px -8px rgba(245, 158, 11, 0.12)',
+            'pill': '0 4px 12px -2px rgba(251, 146, 60, 0.18)',
+          }
+        }
+      }
+    };
+
+    // Instant theme check to avoid screen flash
+    if (localStorage.getItem('card_theme') === 'dark' || 
+        (!localStorage.getItem('card_theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+
+  <style>
+    .squircle {
+      border-radius: 2.25rem;
+    }
+    .squircle-inner {
+      border-radius: 1.75rem;
+    }
+    .hand-drawn-border {
+      border: 3px solid #FED7AA;
+      box-shadow: 6px 6px 0px #FFEDD5;
+    }
+    .wavy-separator {
+      background-image: radial-gradient(circle at center, #FDBA74 2.5px, transparent 2.5px);
+      background-size: 16px 16px;
+      height: 12px;
+      opacity: 0.6;
+    }
+    .dark .wavy-separator {
+      background-image: radial-gradient(circle at center, #64748B 2.5px, transparent 2.5px);
+      opacity: 0.45;
+    }
+  </style>
+</head>
+<body class="bg-buttercream dark:bg-[#11131e] min-h-screen text-slate-800 dark:text-slate-100 font-sans flex items-center justify-center p-4 sm:p-6 selection:bg-peach-200 dark:selection:bg-slate-700 transition-colors duration-300">
+
+  <!-- Background Decorative Floating Shapes -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 dark:opacity-20 transition-opacity duration-300">
+    <div class="absolute top-10 left-12 w-28 h-28 rounded-full bg-peach-100/60 blur-xl"></div>
+    <div class="absolute bottom-12 right-12 w-36 h-36 rounded-full bg-butter-200/50 blur-xl"></div>
+    <div class="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-pastelBlue-100/60 blur-lg"></div>
+  </div>
+
+  <!-- Main Card Container -->
+  <main class="relative z-10 w-full max-w-4xl bg-white dark:bg-[#1a1c2d] squircle p-6 sm:p-8 md:p-10 shadow-squircle dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)] border-4 border-peach-100 dark:border-slate-800 transition-all duration-300">
+    
+    <!-- Top Floating Sparkles & Badges & Action Buttons -->
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6 pb-3 border-b border-dashed border-peach-200/80 dark:border-slate-800 transition-colors">
+      <!-- Spotlight Badge -->
+      <div class="flex items-center gap-2 text-sm font-semibold text-amber-800 dark:text-amber-200 bg-butter-100 dark:bg-amber-950/40 px-3.5 py-1.5 rounded-full border border-butter-200 dark:border-amber-900/50 shadow-sm transition-colors">
+        <span class="animate-bounce">🌟</span>
+        <span id="spotlight-badge" class="font-display tracking-wide">好奇心與野心並行</span>
+      </div>
+
+      <!-- Right Header Actions (Edition + Lang Toggle + Dark Mode Toggle) -->
+      <div class="flex items-center gap-2.5">
+        <span id="edition-badge" class="text-xs text-slate-400 dark:text-slate-500 font-mono hidden sm:inline-block">2026 • 我的大學旅程</span>
+        
+        <!-- Controls Pill -->
+        <div class="flex items-center gap-1.5 bg-peach-50/80 dark:bg-slate-800/80 p-1 rounded-full border border-peach-200/60 dark:border-slate-700/60 shadow-sm transition-colors">
+          <!-- Language Toggle Button -->
+          <button id="lang-toggle-btn" class="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:text-peach-500 dark:hover:text-amber-300 shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer" title="切換語言 / Switch Language">
+            <span class="text-xs">🌐</span>
+            <span id="lang-btn-text">EN</span>
+          </button>
+          
+          <!-- Theme Toggle Button -->
+          <button id="theme-toggle-btn" class="flex items-center justify-center w-7 h-7 rounded-full text-xs font-semibold bg-white dark:bg-slate-700 text-slate-700 dark:text-amber-300 shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer" title="切換深淺模式 / Toggle Dark Mode">
+            <span id="theme-btn-icon">🌙</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Columns Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Portrait & Quick Info -->
+      <section class="md:col-span-5 flex flex-col items-center text-center bg-peach-50/70 dark:bg-slate-800/50 squircle-inner p-6 border-2 border-peach-200/60 dark:border-slate-700/60 relative transition-colors">
+        
+        <!-- Portrait Container with Floating Mini Badges -->
+        <div class="relative mb-5 group">
+          <!-- Squircle Avatar Frame -->
+          <div class="w-44 h-44 sm:w-48 sm:h-48 squircle overflow-hidden border-4 border-white dark:border-slate-700 shadow-float-card bg-peach-100 dark:bg-slate-800 relative transition-colors">
+            <img src="./avatar.jpg" alt="Ichi Chen - Cheerful student portrait" class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuD0IpKJaFJm04EYPt7bMF34uOi1qjtGjNxVmc82NO5ArmO5IZ-VVdY5bzMEhs-nZgmK1tjOCsOC4uMUayRJCeVxDKsUm70SxWgvtUr3UlNP6xFn9-WfJIOsRgyyCXAcXjHAXs7cwtl0F_GNMi9lBFscByjfraZgkp-bvrtGkisl815JEtCT7iKWlU33SlIZSGQC-nsBHwNzqoAYY7OvZVPjn2OM0LYcnhnOtxSbk2D9emOvavMd7N5V';">
+          </div>
+
+          <!-- Floating Badge Top Left: Computer -->
+          <div id="avatar-badge-top-left" class="absolute -top-3 -left-3 bg-butter-300 dark:bg-amber-500 border-2 border-white dark:border-slate-800 text-slate-800 dark:text-slate-900 w-10 h-10 rounded-2xl flex items-center justify-center shadow-md transform -rotate-12 transition-all hover:rotate-0" title="資訊工程探索者">
+            <span class="text-lg">💻</span>
+          </div>
+
+          <!-- Floating Badge Bottom Right: Camera Badge -->
+          <div id="avatar-badge-bottom-right" class="absolute -bottom-2 -right-2 bg-pastelBlue-200 dark:bg-sky-500 border-2 border-white dark:border-slate-800 text-slate-800 dark:text-slate-900 w-11 h-11 rounded-2xl flex items-center justify-center shadow-md transform rotate-12 transition-all hover:rotate-0" title="捕捉日常與回憶">
+            <span class="text-lg">📸</span>
+          </div>
+        </div>
+
+        <!-- Friendly Status Pill -->
+        <div class="inline-flex items-center gap-2 bg-white dark:bg-slate-800/90 px-4 py-2 rounded-full shadow-sm border border-peach-200 dark:border-slate-700 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 mb-4 w-full justify-center transition-colors">
+          <span>🌱</span>
+          <span id="status-pill-text" class="font-display text-peach-500 dark:text-peach-400">學習、探索與持續升級</span>
+        </div>
+
+        <!-- Location & Contact Handle -->
+        <div class="w-full space-y-2 pt-2 border-t border-peach-200/50 dark:border-slate-700/60 text-xs text-slate-600 dark:text-slate-300 font-medium transition-colors">
+          <div class="flex items-center justify-center gap-1.5">
+            <svg class="w-4 h-4 text-peach-400 dark:text-peach-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <span id="location-text">台灣 高雄 🇹🇼</span>
+          </div>
+          <div class="flex items-center justify-center gap-1.5">
+            <svg class="w-4 h-4 text-pastelBlue-400 dark:text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+            </svg>
+            <a href="mailto:hello@example.com" class="text-slate-700 dark:text-slate-300 hover:text-peach-500 dark:hover:text-peach-400 underline decoration-peach-300 dark:decoration-peach-500/50 underline-offset-2 transition-colors">
+              hello@example.com
+            </a>
+          </div>
+        </div>
+
+        <!-- Mascot Dream Chaser Box -->
+        <div class="mt-5 w-full flex flex-col items-center justify-center p-3 rounded-2xl bg-amber-50/60 dark:bg-amber-950/25 border border-dashed border-amber-300/80 dark:border-amber-700/50 transition-colors">
+          <svg class="w-16 h-16 text-amber-500 dark:text-amber-400 drop-shadow-sm transition-transform hover:scale-110 hover:rotate-6 cursor-pointer" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M 50 12 L 61 38 L 90 40 L 68 59 L 75 87 L 50 72 L 25 87 L 32 59 L 10 40 L 39 38 Z" stroke="#EAB308" fill="#FEF08A" fill-opacity="0.35" stroke-dasharray="0"></path>
+            <path d="M 48 10 C 52 14 58 35 62 38 C 66 41 88 40 91 42 C 88 46 70 57 67 61 C 70 68 73 84 72 88 C 66 84 53 74 49 71 C 45 74 32 85 27 86 C 30 80 33 63 31 58 C 27 55 12 43 11 39 C 17 39 36 38 40 37 C 43 33 46 15 48 10 Z" stroke="#D97706" stroke-width="2.5" opacity="0.6"></path>
+          </svg>
+          <span id="starlit-badge-text" class="text-[11px] font-bold text-amber-800/80 dark:text-amber-300 mt-1.5 tracking-wide uppercase">Dream Chaser ✨</span>
+        </div>
+
+      </section>
+
+      <!-- Right Column: Student Details, Bio, Skills & Links -->
+      <section class="md:col-span-7 flex flex-col justify-between h-full">
+        <div>
+          <!-- Header: Name + Department + Say Hello Pill -->
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div>
+              <div id="department-badge" class="inline-block text-xs font-bold uppercase tracking-wider text-pastelBlue-500 dark:text-sky-300 bg-pastelBlue-50 dark:bg-sky-950/60 px-2.5 py-0.5 rounded-md mb-1 border border-pastelBlue-100 dark:border-sky-800/60 transition-colors">
+                國立中山大學｜資訊工程學系
+              </div>
+              <h1 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2 transition-colors">
+                <span id="name-text">Ichi Chen</span>
+                <span class="text-2xl" title="Wave!">👋</span>
+              </h1>
+              <p id="academic-focus" class="text-sm font-semibold text-peach-500 dark:text-peach-400 transition-colors">
+                資工系大學部 • 程式、邏輯與創意探索
+              </p>
+            </div>
+
+            <!-- Top-Right Say Hello Mailto Trigger -->
+            <a id="say-hello-btn" href="mailto:hello@example.com?subject=Hi%20Ichi!%20Nice%20to%20meet%20you!" class="inline-flex items-center gap-2 bg-gradient-to-r from-peach-400 to-peach-500 hover:from-peach-500 hover:to-peach-600 dark:from-peach-500 dark:to-orange-500 text-white font-display font-semibold text-sm px-4 py-2.5 rounded-full shadow-pill transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+              <span id="say-hello-text">來聊聊吧！💌</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Self-intro paragraph -->
+          <p id="bio-text" class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4 transition-colors">
+            嗨！我是 Ichi，一名就讀資訊工程學系的大學生！💻 喜歡探索新事物，也享受把原本不懂的知識慢慢弄懂的成就感。目前正在學習 C++、Python、物件導向程式設計與數位系統，從寫程式、設計邏輯電路到研究網頁運作原理，每天都在解鎖新技能。除了理性思考的一面，我也很喜歡用鏡頭記錄生活，熱愛音樂、演唱會、棒球與旅行。📸🎶 我是個有目標、有主見，也願意為喜歡的事物投入熱情的人。希望未來不只成為更厲害的工程師，也能保有好奇心，勇敢體驗世界，在努力成長的同時收藏更多閃閃發光的回憶！
+          </p>
+
+          <!-- Quote Container -->
+          <div class="bg-butter-100/80 dark:bg-amber-950/25 border-l-4 border-butter-400 dark:border-amber-500 p-3.5 rounded-r-2xl mb-5 flex items-start gap-3 text-amber-900 dark:text-amber-200 transition-colors">
+            <span class="text-2xl leading-none text-butter-400 dark:text-amber-400 font-serif">“</span>
+            <blockquote id="quote-text" class="text-xs sm:text-sm font-medium italic">
+              用理性探索世界，用熱情收藏生活。Keep growing, keep glowing. ✨
+            </blockquote>
+          </div>
+
+          <!-- Multi-colored Skill Pills -->
+          <div class="mb-5">
+            <div id="superpowers-title" class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 transition-colors">
+              核心超能力
+            </div>
+            <div id="tags-container" class="flex flex-wrap gap-2">
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-pastelBlue-100 dark:bg-sky-950/60 text-pastelBlue-500 dark:text-sky-300 border border-pastelBlue-200 dark:border-sky-800 hover:bg-pastelBlue-200 dark:hover:bg-sky-900 transition-colors cursor-default">
+                #資工探索
+              </span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-butter-200 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-butter-300 dark:border-amber-800 hover:bg-butter-300 dark:hover:bg-amber-900 transition-colors cursor-default">
+                #Python與Cpp
+              </span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-peach-100 dark:bg-orange-950/60 text-peach-500 dark:text-orange-300 border border-peach-200 dark:border-orange-800 hover:bg-peach-200 dark:hover:bg-orange-900 transition-colors cursor-default">
+                #問題解決者
+              </span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-pastelLavender-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-pastelLavender-200 dark:border-purple-800 hover:bg-pastelLavender-200 dark:hover:bg-purple-900 transition-colors cursor-default">
+                #ENTJ
+              </span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-pastelMint-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-pastelMint-200 dark:border-emerald-800 hover:bg-pastelMint-200 dark:hover:bg-emerald-900 transition-colors cursor-default">
+                #熱愛攝影
+              </span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-peach-100 dark:bg-orange-950/60 text-peach-500 dark:text-orange-300 border border-peach-200 dark:border-orange-800 hover:bg-peach-200 dark:hover:bg-orange-900 transition-colors cursor-default">
+                #音樂狂熱
+              </span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-butter-200 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-butter-300 dark:border-amber-800 hover:bg-butter-300 dark:hover:bg-amber-900 transition-colors cursor-default">
+                #生活探險家
+              </span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-pastelBlue-100 dark:bg-sky-950/60 text-pastelBlue-500 dark:text-sky-300 border border-pastelBlue-200 dark:border-sky-800 hover:bg-pastelBlue-200 dark:hover:bg-sky-900 transition-colors cursor-default">
+                #持續成長
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Static External Links (Instagram, GitHub, Notion, Portfolio) -->
+        <div class="pt-3 border-t border-slate-100 dark:border-slate-800 transition-colors">
+          <div id="explore-links-title" class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 transition-colors">
+            探索連結
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 px-3 py-2 bg-slate-50 dark:bg-slate-800/80 hover:bg-peach-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 hover:text-peach-500 dark:hover:text-peach-400 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold transition-all hover:border-peach-200 dark:hover:border-slate-600">
+              <span>📸</span>
+              <span>Instagram</span>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 px-3 py-2 bg-slate-50 dark:bg-slate-800/80 hover:bg-peach-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 hover:text-peach-500 dark:hover:text-peach-400 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold transition-all hover:border-peach-200 dark:hover:border-slate-600">
+              <span>💻</span>
+              <span>GitHub</span>
+            </a>
+            <a href="https://notion.so" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 px-3 py-2 bg-slate-50 dark:bg-slate-800/80 hover:bg-butter-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 hover:text-amber-800 dark:hover:text-amber-300 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold transition-all hover:border-butter-300 dark:hover:border-slate-600">
+              <span>📝</span>
+              <span>Notion</span>
+            </a>
+            <a href="https://example.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 px-3 py-2 bg-slate-50 dark:bg-slate-800/80 hover:bg-pastelBlue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 hover:text-pastelBlue-500 dark:hover:text-sky-300 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold transition-all hover:border-pastelBlue-200 dark:hover:border-slate-600">
+              <span>🌷</span>
+              <span id="link-portfolio-text">作品集</span>
+            </a>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <!-- Wavy Dotted Divider -->
+    <div class="my-8 flex items-center justify-center">
+      <div class="w-full wavy-separator"></div>
+    </div>
+
+    <!-- Bottom Section: 4 Soft Pastel Metric Tiles -->
+    <section>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4">
+        
+        <!-- Metric Tile 1 -->
+        <div class="bg-peach-50 dark:bg-orange-950/25 border-2 border-peach-200 dark:border-orange-900/50 rounded-2xl p-4 text-center transition-all hover:-translate-y-1">
+          <div id="metric-0-val" class="text-2xl sm:text-3xl font-display font-bold text-peach-500 dark:text-peach-400 mb-1">3+</div>
+          <div id="metric-0-title" class="text-xs font-semibold text-slate-600 dark:text-slate-300">程式語言</div>
+          <div id="metric-0-sub" class="text-[10px] text-peach-400 dark:text-peach-300 mt-0.5">Python • C++ • Verilog</div>
+        </div>
+
+        <!-- Metric Tile 2 -->
+        <div class="bg-butter-100 dark:bg-amber-950/25 border-2 border-butter-300 dark:border-amber-900/50 rounded-2xl p-4 text-center transition-all hover:-translate-y-1">
+          <div id="metric-1-val" class="text-2xl sm:text-3xl font-display font-bold text-amber-700 dark:text-amber-300 mb-1">∞</div>
+          <div id="metric-1-title" class="text-xs font-semibold text-slate-600 dark:text-slate-300">好奇心指數</div>
+          <div id="metric-1-sub" class="text-[10px] text-amber-600 dark:text-amber-400 mt-0.5">永遠保持探索與提問</div>
+        </div>
+
+        <!-- Metric Tile 3 -->
+        <div class="bg-pastelBlue-50 dark:bg-sky-950/25 border-2 border-pastelBlue-200 dark:border-sky-900/50 rounded-2xl p-4 text-center transition-all hover:-translate-y-1">
+          <div id="metric-2-val" class="text-2xl sm:text-3xl font-display font-bold text-pastelBlue-500 dark:text-sky-300 mb-1">ENTJ</div>
+          <div id="metric-2-title" class="text-xs font-semibold text-slate-600 dark:text-slate-300">人格特質</div>
+          <div id="metric-2-sub" class="text-[10px] text-pastelBlue-400 dark:text-sky-400 mt-0.5">獨立 • 積極 • 目標導向</div>
+        </div>
+
+        <!-- Metric Tile 4 -->
+        <div class="bg-pastelMint-50 dark:bg-emerald-950/25 border-2 border-pastelMint-200 dark:border-emerald-900/50 rounded-2xl p-4 text-center transition-all hover:-translate-y-1">
+          <div id="metric-3-val" class="text-2xl sm:text-3xl font-display font-bold text-emerald-600 dark:text-emerald-300 mb-1">100%</div>
+          <div id="metric-3-title" class="text-xs font-semibold text-slate-600 dark:text-slate-300">生活熱忱</div>
+          <div id="metric-3-sub" class="text-[10px] text-emerald-500 dark:text-emerald-400 mt-0.5">音樂 • 攝影 • 嶄新冒險</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer Note for GitHub Pages -->
+    <footer class="mt-6 pt-4 text-center text-xs text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2 transition-colors">
+      <div class="flex items-center gap-1.5">
+        <span id="footer-hosted">用 💗、好奇心與一點點程式碼打造</span>
+      </div>
+      <div id="footer-nav" class="text-slate-400 dark:text-slate-500">
+        Ichi 的小小宇宙角落 • 保持探索 ✨
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Interactive Logic: i18n & Dark Mode -->
+  <script>
+    // Bilingual dictionary
+    const translations = {
+      zh: {
+        pageTitle: "Ichi's Little Universe | 個人學生名片",
+        spotlightBadge: "好奇心與野心並行",
+        editionBadge: "2026 • 我的大學旅程",
+        avatarBadgeTopLeftTitle: "資訊工程探索者",
+        avatarBadgeBottomRightTitle: "捕捉日常與回憶",
+        statusPill: "學習、探索與持續升級",
+        location: "台灣 高雄 🇹🇼",
+        starlitBadge: "Dream Chaser ✨",
+        departmentBadge: "國立中山大學｜資訊工程學系",
+        name: "Ichi Chen",
+        academicFocus: "資工系大學部 • 程式、邏輯與創意探索",
+        sayHelloText: "來聊聊吧！💌",
+        emailSubject: "Hi Ichi! 很高興認識你！",
+        bio: "嗨！我是 Ichi，一名就讀資訊工程學系的大學生！💻 喜歡探索新事物，也享受把原本不懂的知識慢慢弄懂的成就感。目前正在學習 C++、Python、物件導向程式設計與數位系統，從寫程式、設計邏輯電路到研究網頁運作原理，每天都在解鎖新技能。除了理性思考的一面，我也很喜歡用鏡頭記錄生活，熱愛音樂、演唱會、棒球與旅行。📸🎶 我是個有目標、有主見，也願意為喜歡的事物投入熱情的人。希望未來不只成為更厲害的工程師，也能保有好奇心，勇敢體驗世界，在努力成長的同時收藏更多閃閃發光的回憶！",
+        quote: "用理性探索世界，用熱情收藏生活。Keep growing, keep glowing. ✨",
+        superpowersTitle: "核心超能力",
+        tags: [
+          "#資工探索",
+          "#Python與Cpp",
+          "#問題解決者",
+          "#ENTJ",
+          "#熱愛攝影",
+          "#音樂狂熱",
+          "#生活探險家",
+          "#持續成長"
+        ],
+        exploreLinksTitle: "探索連結",
+        portfolioLink: "作品集",
+        metrics: [
+          { val: "3+", title: "程式語言", sub: "Python • C++ • Verilog" },
+          { val: "∞", title: "好奇心指數", sub: "永遠保持探索與提問" },
+          { val: "ENTJ", title: "人格特質", sub: "獨立 • 積極 • 目標導向" },
+          { val: "100%", title: "生活熱忱", sub: "音樂 • 攝影 • 嶄新冒險" }
+        ],
+        footerHosted: "用 💗、好奇心與一點點程式碼打造",
+        footerNav: "Ichi 的小小宇宙角落 • 保持探索 ✨",
+        langBtnText: "EN"
+      },
+      en: {
+        pageTitle: "Ichi's Little Universe | Student Intro Card",
+        spotlightBadge: "Curious Mind, Ambitious Heart",
+        editionBadge: "2026 • My University Journey",
+        avatarBadgeTopLeftTitle: "Computer Science Explorer",
+        avatarBadgeBottomRightTitle: "Capturing Moments & Memories",
+        statusPill: "Learning, Exploring & Leveling Up",
+        location: "Kaohsiung, Taiwan 🇹🇼",
+        starlitBadge: "Dream Chaser ✨",
+        departmentBadge: "National Sun Yat-sen Univ. | Dept. of CSE",
+        name: "Ichi Chen",
+        academicFocus: "Computer Science Undergraduate • Programming, Logic & Creative Exploration",
+        sayHelloText: "Say Hello! 💌",
+        emailSubject: "Hi Ichi! Nice to meet you!",
+        bio: "Hey! I'm Ichi, a Computer Science student! 💻 Driven by curiosity, I love diving into the unknown and turning confusion into clarity. Currently exploring C++, Python, OOP, and digital logic design—leveling up every single day. Beyond code and logic, I capture life through my lens and love music, concerts, baseball, and travel. 📸🎶 I'm purposeful, independent, and passionately dedicated to what I love. My goal isn't just to be a skilled engineer, but to stay curious, boldly experience the world, and collect shining memories as I grow!",
+        quote: "Explore the world with reason; embrace life with passion. Keep growing, keep glowing. ✨",
+        superpowersTitle: "Key Superpowers",
+        tags: [
+          "#ComputerScience",
+          "#PythonAndCpp",
+          "#ProblemSolver",
+          "#ENTJ",
+          "#Photography",
+          "#MusicLover",
+          "#LifeExplorer",
+          "#KeepGrowing"
+        ],
+        exploreLinksTitle: "Explore Links",
+        portfolioLink: "Portfolio",
+        metrics: [
+          { val: "3+", title: "Programming Languages", sub: "Python • C++ • Verilog" },
+          { val: "∞", title: "Curiosity Level", sub: "Always Asking Why & How" },
+          { val: "ENTJ", title: "Personality Type", sub: "Independent • Driven • Goal-Oriented" },
+          { val: "100%", title: "Passion for Life", sub: "Music • Photography • New Adventures" }
+        ],
+        footerHosted: "Made with 💗, curiosity & a little bit of code",
+        footerNav: "A little corner of Ichi's universe • Keep exploring ✨",
+        langBtnText: "中文"
+      }
+    };
+
+    // State management
+    let currentLang = localStorage.getItem('card_lang') || 'zh';
+    let isDarkMode = document.documentElement.classList.contains('dark');
+
+    function updateLanguageUI(lang) {
+      const data = translations[lang];
+      document.title = data.pageTitle;
+      document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+
+      document.getElementById('spotlight-badge').textContent = data.spotlightBadge;
+      document.getElementById('edition-badge').textContent = data.editionBadge;
+      document.getElementById('avatar-badge-top-left').title = data.avatarBadgeTopLeftTitle;
+      document.getElementById('avatar-badge-bottom-right').title = data.avatarBadgeBottomRightTitle;
+      document.getElementById('status-pill-text').textContent = data.statusPill;
+      document.getElementById('location-text').textContent = data.location;
+      document.getElementById('starlit-badge-text').textContent = data.starlitBadge;
+      document.getElementById('department-badge').textContent = data.departmentBadge;
+      document.getElementById('name-text').textContent = data.name;
+      document.getElementById('academic-focus').textContent = data.academicFocus;
+      document.getElementById('say-hello-text').textContent = data.sayHelloText;
+      document.getElementById('say-hello-btn').href = `mailto:hello@example.com?subject=${encodeURIComponent(data.emailSubject)}`;
+      document.getElementById('bio-text').textContent = data.bio;
+      document.getElementById('quote-text').textContent = data.quote;
+      document.getElementById('superpowers-title').textContent = data.superpowersTitle;
+      document.getElementById('explore-links-title').textContent = data.exploreLinksTitle;
+      document.getElementById('link-portfolio-text').textContent = data.portfolioLink;
+
+      // Update tags
+      const tagEls = document.querySelectorAll('#tags-container span');
+      data.tags.forEach((tag, idx) => {
+        if (tagEls[idx]) tagEls[idx].textContent = tag;
+      });
+
+      // Update metrics
+      data.metrics.forEach((m, idx) => {
+        const valEl = document.getElementById(`metric-${idx}-val`);
+        const titleEl = document.getElementById(`metric-${idx}-title`);
+        const subEl = document.getElementById(`metric-${idx}-sub`);
+        if (valEl) valEl.textContent = m.val;
+        if (titleEl) titleEl.textContent = m.title;
+        if (subEl) subEl.textContent = m.sub;
+      });
+
+      document.getElementById('footer-hosted').textContent = data.footerHosted;
+      document.getElementById('footer-nav').textContent = data.footerNav;
+      document.getElementById('lang-btn-text').textContent = data.langBtnText;
+    }
+
+    function updateThemeUI(dark) {
+      if (dark) {
+        document.documentElement.classList.add('dark');
+        document.getElementById('theme-btn-icon').textContent = '☀️';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('theme-btn-icon').textContent = '🌙';
+      }
+    }
+
+    // Toggle handlers
+    function toggleLanguage() {
+      currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      localStorage.setItem('card_lang', currentLang);
+      updateLanguageUI(currentLang);
+    }
+
+    function toggleTheme() {
+      isDarkMode = !isDarkMode;
+      localStorage.setItem('card_theme', isDarkMode ? 'dark' : 'light');
+      updateThemeUI(isDarkMode);
+    }
+
+    // Initialize UI on load
+    document.addEventListener('DOMContentLoaded', () => {
+      updateThemeUI(isDarkMode);
+      updateLanguageUI(currentLang);
+
+      document.getElementById('lang-toggle-btn').addEventListener('click', toggleLanguage);
+      document.getElementById('theme-toggle-btn').addEventListener('click', toggleTheme);
+    });
+  </script>
+</body>
+</html>
